@@ -5,7 +5,7 @@
 
 ------
 
-本文就Box2D在微信小游戏中的对应JS版本与WASM版本的物理计算效率进行测试统计，以此来为小游戏开发者提供引擎的在不同场景下的效率，并提供了Box2D WASM版本的使用方法。
+本文就 Box2D 在微信小游戏中的对应 JS 版本与 WASM 版本的物理计算效率进行测试统计，以此来为小游戏开发者提供引擎的在不同场景下的效率，并提供了 Box2D WASM 版本的使用方法。
 
 
 
@@ -19,21 +19,22 @@
 
 ------
 
-以设备屏幕作为容器，从上方逐渐随机产生不定半径的小球或不定尺寸的方块自由落体，直至掉落容器底部，观测在不同设备中的渲染帧率（**FPS**）以及不同引擎中物理单步计算耗时(**stepSimulation**)，实验效果如下图所示。
+以设备屏幕作为容器，从上方逐渐随机产生不定半径的小球或不定尺寸的方块（下文统称物体）自由落体，直至掉落容器底部，观测在不同设备中的渲染帧率（**FPS**）以及不同引擎中物理单步计算耗时(**stepSimulation**)，实验效果如下图所示。
 
-<img src="https://github.com/liuxinyumocn/WX3DPhysicsTest/blob/master/image/image-20210410210434454.png?raw=true" alt="image-20210410210434454" width="200" />
+<img src="https://github.com/liuxinyumocn/WX2DPhysicsTest/blob/master/source/IMG_8626.PNG?raw=true" width="200" />
 
 其中我们对场景中的一些物理参数的设定为：
 
-小球属性：
+物体属性：
 
-- Density : 1
+- Density : 2.5
 - Restitution : 0.9
-- Friction : 0.01
+- Friction : 0.6
 - r : 2 ～ 12 （小球半径）
 - w / h : 4 ～ 24（方块宽高）
+- Mass : 3
 
-每100ms产生1个自由落体的小球或方块（下文统称物体）。
+每100ms产生1个自由落体的物体。
 
 
 
@@ -72,7 +73,7 @@ fps_record(){
 	window.global_var.fps = parseInt(fps);		//导入至一个全局的记录器中  ①
 	this.fp_ = 0;
 	this.fps_lasttimestamp = now;
-	setTimeout(this.fps_record.bind(this),1000);
+	setTimeout(this.fps_record.bind(this),1000); //每秒取样
 }
 ```
 
@@ -87,10 +88,7 @@ updatePhysics(delta){
   
 	window.global_var.push(d);				//导入至一个全局的记录器中  ①
 	
-  this.world.ClearForces();
-	for(let i in this._balls){
-		//others...
-	}
+	//others...
 }
 ```
 
