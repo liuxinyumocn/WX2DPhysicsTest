@@ -21,7 +21,7 @@
 
 以设备屏幕作为容器，从上方逐渐随机产生不定半径的小球或不定尺寸的方块（下文统称物体）自由落体，直至掉落容器底部，观测在不同设备中的渲染帧率（**FPS**）以及不同引擎中物理单步计算耗时(**stepSimulation**)，实验效果如下图所示。
 
-<img src="https://github.com/liuxinyumocn/WX2DPhysicsTest/blob/master/source/IMG_8626.PNG?raw=true" width="200" />
+<img src="source/IMG_8626.PNG?raw=true" width="200" />
 
 其中我们对场景中的一些物理参数的设定为：
 
